@@ -1,15 +1,20 @@
 from django.shortcuts import render, redirect
 from .models import Player, Game
 import random
+from django.db import IntegrityError
 
 def index(request):
+    error_message = None
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
-        player, created = Player.objects.get_or_create(name=name, email=email)
-        request.session['player_id'] = player.id
-        return redirect('game')
-    return render(request, 'index.html')
+        try:
+            player, created = Player.objects.get_or_create(name=name, email=email)
+            request.session['player_id'] = player.id
+            return redirect('game')
+        except IntegrityError:
+            error_message = "A player with this email already exists. Please try a different email."
+    return render(request, 'index.html', {'error_message': error_message})
 
 def game(request):
     player_id = request.session.get('player_id')
