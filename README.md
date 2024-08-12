@@ -18,6 +18,9 @@ cd tictactoe
 
 ## create Tables 
 python manage.py makemigrations / python manage.py makemigrations game
+
+
+
 python manage.py migrate
 ## windows
 
