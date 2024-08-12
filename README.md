@@ -15,6 +15,10 @@ source tenv/bin/activate
 pip install -r requirements.txt
 ## Start Server by using the following commands:
 cd tictactoe
+
+## create Tables 
+python manage.py makemigrations / python manage.py makemigrations game
+python manage.py migrate
 ## windows
 
 python manage.py runserver
